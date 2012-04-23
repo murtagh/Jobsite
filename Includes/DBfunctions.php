@@ -39,6 +39,18 @@ private function __construct() {
     parent::set_charset('utf-8');
 }
 
+public function get_user_id_by_email($email) {
+
+    $email = $this->real_escape_string($email);
+
+    $user = $this->query("SELECT userID FROM useraccount WHERE Email = '" . $email . "'");
+    if ($user->num_rows > 0){
+        $row = $user->fetch_row();
+        return $row[0];
+    } else
+        return null;
+}
+
 //This function takes the values from the variables and inserts them into the
 //necessary columns in the useraccount table
 public function create_user ($email, $password, $firstname, $lastname, $country, $city, $county){
@@ -49,12 +61,19 @@ public function create_user ($email, $password, $firstname, $lastname, $country,
     $country = $this->real_escape_string($country);
     $city = $this->real_escape_string($city);
     $county = $this->real_escape_string($county);
-    $this->query("INSERT INTO useraccount (Email, Password, First_Namr, Last_Name, Country, City, County)
+    $this->query("INSERT INTO useraccount (Email, Password, First_Name, Last_Name, Country, City, County)
         VALUES ('" . $email . "', '" . $password . "','" . $firstname . "','" . $lastname . "',
             '" . $country . "','" . $city . "','" . $county . "')");
 }
 
+public function verify_userlogon_credentials ($useremail, $userpassword){
+   $useremail = $this->real_escape_string($useremail);
 
+   $userpassword = $this->real_escape_string($userpassword);
+   $result = $this->query("SELECT 1 FROM useraccount
+ 	           WHERE Email = '" . $useremail . "' AND Password = '" . $userpassword . "'");
+   return $result->data_seek(0);
+}
 }   
    
 ?>
