@@ -135,7 +135,7 @@
             ?>
             *Location:<br/>
                 <!--Start of country dropdown list. List retrieved from http://snipplr.com/view/4792/ -->
-                <select name ="country" syle="width: 500px;">
+                <select name ="country">
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
