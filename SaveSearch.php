@@ -10,34 +10,29 @@
 		<div id="logo">
 			<h1><a href="home.php">ContractWork.ie</a></h1>
 		</div>
-    
 		<ul id="menu">
 			<li><a href="home.php">Home</a></li>
+			<li><a href="forum.php">Forum</a></li>
 			<li><a href="help.php">Help</a></li>
 			<li><a href="contact.php">Contact</a></li>
 		</ul>
-    
 		<div id="intro">
 			<h1>Consultants and Contracter Recruiting</h1>
 			<p>Right Jobs. Right people. Right solutions.</p>
-
-		</div>
-    
-    <h2>Become a Member</h2>
-    <form action="Employer_Reg_Form" method="POST">
-    Fill in the necessary fields in the below form (Marked with *) to create an account<br/><br/>
-    
-    *Email:<br/> <input type="text" name="email_employer" maxlength="50" size="70"/><br/>
-    *Password:<br/> <input type="password" name="password_employer" maxlength="25" size="70"/><br/>
-    *Company Name:<br/> <input type="text" name="Company_Name" maxlenght="100" size="70" /><br/>
-    *Address:<br/> <textarea name="Address" rows="5" cols="53">
-    </textarea><br/>
-    *Company Description:<br/> <textarea name="Comp_Description" rows="10" cols="53">
-    </textarea><br/>
-    
-    <input type="submit" value="Register" name="Register" /><br/><br/>
-    </form>
+			<div id="login">
+				<p><a href="User_Reg_Form.php">Jobseekers</a> <a href="Employer_Reg_Form.php">Employers</a></p>
+			</div>
+		</div>	
 		
+		<div id="left">
+	
+		</div>
+	
+		<div id="right">
+
+      
+			<p style="border-bottom: 1px solid #ccc; padding: 0 0 8px"></p>
+      
 			<div style="clear: both"></div>
 		</div>
 			

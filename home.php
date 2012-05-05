@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($logonSuccess == true) {
         session_start();
         $_SESSION['useremail'] = $_POST['useremail'];
-        header('Location: userprofile.php');
+        header('Location: User_Profile.php');
         exit;
     }
 }
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
-	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href= "style.css" type="text/css" />
 	<title>Home</title>
 </head>
 <body>
@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		</div>
 		<ul id="menu">
 			<li><a href="home.php">Home</a></li>
-			<li><a href="forum.php">Forum</a></li>
 			<li><a href="help.php">Help</a></li>
 			<li><a href="contact.php">Contact</a></li>
 		</ul>

@@ -11,7 +11,7 @@ class jobsiteDB extends mysqli {
     private $dbName = "jobsite";
     private $dbHost = "localhost";
     
-         //This method must be static, and must return an instance of the object if the object
+ //This method must be static, and must return an instance of the object if the object
  //does not already exist.
  public static function getInstance() {
    if (!self::$instance instanceof self) {

@@ -1,141 +1,150 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<?php
-
-    require_once("Includes/DBfunctions.php");
-    
-    /** variables assigned with values */
-    $userEmailIsUnique = true;
-    $passwordIsValid = true;				
-    $emailIsEmpty = false;					
-    $passwordIsEmpty = false;				
-    $password2IsEmpty = false;
-    $firstnameIsEmpty = false;
-    $lastnameIsEmpty = false;
-    $cityIsEmpty = false;
-    $cityIsDefault = false;
-            
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if ($_POST["email"]=="" && $_POST["firstname"]=="" && $_POST["lastname"]=="" 
-                && $_POST["city"]=="" && $_POST["city"]=="Enter a city or town") {
-            $emailIsEmpty = true;
-            $firstnameIsEmpty = true;
-            $lastnameIsEmpty = true;
-            $cityIsEmpty = true;
-            $cityIsDefault = true;
-    }
-        /** creates an instance of the jobsiteDB class and calls the
-    * get_user_id_by_email function within the jobsiteDB class 
-    * if statement is used to check if Email entered is not unique */
-    $userID = jobsiteDB::getInstance()->get_user_id_by_email($_POST["email"]);
-        if ($userID) {
-            $userEmailIsUnique = False;
-        }
-    
-    /** check whether password and confirm passwrods fields are not empty
-    * Also check if both fileds match */
-    if ($_POST["password"]=="")
-    $passwordIsEmpty = true;
-    if ($_POST["password2"]=="")
-    $password2IsEmpty = true;
-    if ($_POST["password"]!=$_POST["password2"]) {
-    $passwordIsValid = false;} 
-
-     /** checks whether data entered in the form was correct
-      * if data is validated Ok then, then it is added as new entry to the database
-      * user is then re-directed to their new user profile page
-      */
-        if (!$emailIsEmpty && $userEmailIsUnique && !$passwordIsEmpty && !$password2IsEmpty && $passwordIsValid
-            && !$firstnameIsEmpty && !$lastnameIsEmpty && !$cityIsEmpty && !$cityIsDefault) {
-        jobsiteDB::getInstance()->create_user($_POST["email"], $_POST["password"], $_POST["firstname"],$_POST["lastname"],
-                $_POST["country"], $_POST["city"], $_POST["county"]);
-            session_start();
-        $_SESSION['email'] = $_POST['email'];
-        header('Location: userprofile.php' );
-        exit;
-    
-   }
-   }
-?>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
-    <link rel="stylesheet" href="style.css" type="text/css" />
-    <title></title>
-  </head>
-  <body>
-    <div id="content">
-      <div id="logo">
-        <h1><a href="home.php">ContractWork.ie</a></h1>
-      </div>
-      <ul id="menu">
-        <li><a href="home.php">Home</a></li>
-        <li><a href="forum.php">Forum</a></li>
-        <li><a href="help.php">Help</a></li>
-        <li><a href="contact.php">Contact</a></li>
-      </ul>
-      <div id="intro">
-        <h1>Consultants and Contracter Recruiting</h1>
-        <p>Right Jobs. Right people. Right solutions.</p>
-        <div id="login">
-          <p><a href="User_Reg_Form.php">Jobseekers</a> <a href="Employer_Reg_Form.php">Employers</a></p>
-        </div>
-      </div>	
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<title></title>
+</head>
+<body>
+	<div id="content">
+		<div id="logo">
+			<h1><a href="home.php">ContractWork.ie</a></h1>
+		</div>
+		<ul id="menu">
+			<li><a href="home.php">Home</a></li>
+			<li><a href="forum.php">Forum</a></li>
+			<li><a href="help.php">Help</a></li>
+			<li><a href="contact.php">Contact</a></li>
+		</ul>
+		<div id="intro">
+			<h1>Consultants and Contracter Recruiting</h1>
+			<p>Right Jobs. Right people. Right solutions.</p>
+			<div id="login">
+				<p><a href="User_Reg_Form.php">Jobseekers</a> <a href="Employer_Reg_Form.php">Employers</a></p>
+			</div>
+		</div>	
+		
+    <h2>My Profile 
+    <button type="button" name="CancelProfile" onclick="location.href='User_Profile.php'">Cancel</button>
+    <input type="submit" value="Save" name="SaveProfile" />
+    </h2>
+		<div id="left">
+      <form name="EditProfile" method="POST" action="EditProfile.php" id="EditProfile">
+            <table border="0" cellspacing="1">
+      <tbody>
+        <tr>
+          <td><b>Name:</b></td>
+          <td><input type="text" name="Name" value="" maxlength="50"/></td>
+        </tr>
+        <tr>
+          <td><b>Job Title:</b></td>
+          <td><input type="text" name="JobTitle" value="" maxlength="50"/></td>
+        </tr>
+        <tr>
+          <td><b>Availability:</b></td>
+          <td><select name="availability">
+              <option>Select availability</option>
+              <option>Not currently contracted</option>
+              <option>Currently contracted</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td><b>Daily Rate (EUR):</b></td>
+          <td><input type="text" name="DailyRate" value="" maxlenght="11" /></td>
+        </tr>
+        <tr>
+          <td><b>Most Recent Employer:</b></td>
+          <td><input type="text" name="RecentEmployer" value="" maxlenght="100"/></td>
+        </tr>
+        <tr>
+          <td><b>Career Level:</b></td>
+          <td><select name="CareerLevel">
+              <option>Select career level</option>
+              <option>Student/Graduate</option>
+              <option>Entry Level</option>
+              <option>Experienced (Non-Manager)</option>
+              <option>Manager</option>
+              <option>Executive</option>
+              <option>Senior Executive</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td><b>Years of Professional Experience:</td>
+          <td><select name="ExperienceYears">
+              <option>Select years of professional experience</option>
+              <option>Less than 1 year</option>
+              <option>1+ years</option>
+              <option>2+ years</option>
+              <option>5+ years</option>
+              <option>7+ years</option>
+              <option>10+ years</option>
+              <option>More than 15 years</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td><b>Current Education Level:</b></td>
+          <td><select name="EducationLevel">
+              <option>Select education level</option>
+              <option>Secondary School</option>
+              <option>Certificate</option>
+              <option>Diploma</option>
+              <option>Bachelor's Degree</option>
+              <option>Master's Degree</option>
+              <option>Doctorate</option>
+              <option>Professional</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td><b>Willing To Travel:</b></td>
+          <td><select name="travel">
+              <option>Please Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select></td>
+        </tr>
+        <tr>
+          <td><b>Willing To Relocate:</b></td>
+          <td><select name="relocate">
+              <option>Please Select</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select></td>
+        </tr>
+      </tbody>
+    </table>
+      <br/><p><b>Personal Statement:</b></p>
+      <textarea name="PersonalStatement" rows="5" cols="100">
+      </textarea><br/>
+      </form><br/>
+      
+      <b>Upload New CV</b>
+      <p>Browse to upload your CV <input type="file" name="CVupload" value="" /></p>
 
-      <h2>Become a Member</h2>
-          <form action="User_Reg_Form.php" method="POST">
-            Fill in the necessary fields in the below form (Marked with *) to create an account<br/><br/>
-            
-            *Email:<br/> <input type="text" name="email" maxlength="50" size="70"/><br/>
-            <?php
-                if ($emailIsEmpty) {
-                echo ("<b>Enter an email address, please!</b>");
-                echo ("<br/>");
-            }    
-                if (!$userEmailIsUnique) {
-                echo ("<b>This email already exists. Please choose another email</b>");
-                echo ("<br/>");
-            }
-            ?>
-            
-            *Password:<br/> <input type="password" name="password" maxlength="25" size="70"/><br/>
-            <?php
-                if ($passwordIsEmpty) {
-                echo ("<b>Enter a password, please!</b>");
-                echo ("<br/>");
-            }   
-            ?>
-            
-            *Please confirm your password:<br/> <input type="password" name="password2" maxlength="25" size="70"/><br/>
-            <?php
-                if ($password2IsEmpty) {
-                echo ("<b>Please confirm you password!</b>");
-                echo ("<br/>");
-            }  
-                if (!$password2IsEmpty && !$passwordIsValid) {
-                echo  ("<b>The passwords do not match!</b>");
-                echo ("<br/>");  
-            }  
-            ?>
-            
-            *First Name:<br/> <input type="text" name="firstname" maxlength="50" size="70"/><br/>
-            <?php
-                if ($firstnameIsEmpty) {
-                echo ("<b>Enter yout first name, please!</b>");
-                echo ("<br/>");
-            }                
-            ?>
-            
-            *Last Name:<br/> <input type="text" name="lastname" maxlength="50" size="70"/><br/>
-            <?php
-                if ($lastnameIsEmpty) {
-                echo ("<b>Enter yout last name, please!</b>");
-                echo ("<br/>");
-            }                
-            ?>
-            *Location:<br/>
-                <!--Start of country dropdown list. List retrieved from http://snipplr.com/view/4792/ -->
-                <select name ="country">
+		</div>
+	
+		<div id="right">
+    <table border="0" cellspacing="1">
+      <tbody>
+        <tr>
+          <td><b>Email:</b></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><b>Mobile:</b></td>
+          <td><input type="text" name="mobile" value=""/></td>
+        </tr>
+        <tr>
+          <td><b>Secondary Number:</b></td>
+          <td><input type="text" name="SecNum" value="" /></td>
+        </tr>
+        <tr>
+          <td><b>Location:</b></td>
+          <td><input type="text" name="Town" value="" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><select name="country">
+                <option value="0">Select country</option>
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
@@ -231,7 +240,7 @@
                 <option value="Indonesia">Indonesia</option>
                 <option value="Iran">Iran</option>
                 <option value="Iraq">Iraq</option>
-                <option selected="selected" value="Ireland">Ireland</option>
+                <option value="Ireland">Ireland</option>
                 <option value="Isle of Man">Isle of Man</option>
                 <option value="Israel">Israel</option>
                 <option value="Italy">Italy</option>
@@ -357,26 +366,11 @@
                 <option value="Yemen">Yemen</option>
                 <option value="Zambia">Zambia</option>
                 <option value="Zimbabwe">Zimbabwe</option>
-                </select><br/>
-                <!-- End of dropdown list -->
-                 
-                <!-- javascript for make default text disappear got from
-                http://www.web-source.net/javascript_disappearing_form_text.htm-->
-                <input type="text" name="city" maxlength="50" value="Enter a city or town" size="40"
-                onFocus="if(this.value == 'Enter a city or town'){this.value = '';}" onBlur="if (this.value == '') {this.value = 'Enter a city or town';}"/><br/>
-           <?php
-                if ($cityIsEmpty) {
-                echo ("<b>Enter a city, please!</b>");
-                echo ("<br/>");
-            } 
-                if ($cityIsDefault) {
-                echo ("<b>Enter a city, please!</b>");
-                echo ("<br/>");
-                }
-            ?>
-                
-                <!--Start of counties dropdown list.--> 
-                <select name="county" size="70">
+                </select></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><select name="county">
                 <option value="0">Select county</option>
                 <option value="Carlow">Carlow</option>
                 <option value="Cavan">Cavan</option>
@@ -405,25 +399,33 @@
                 <option value="Westmeath">Westmeath</option>
                 <option value="Wexford">Wexford</option>
                 <option value="Wicklow">Wicklow</option>
-                </select><br/>
-                <!-- End of dropdown list -->
-                
-            <input type="submit" value="Register" />
-           
-        </form>
-       <div style="clear: both"></div>
-      </div>
-
-      <div id="footer">
-        <div id="col1">
-          <p>&nbsp;</p>
-        </div>
-        <div id="col2">
-          <p>&nbsp;</p>
-        </div>
-        <div id="col3">
-          <p>&nbsp;</p>
-        </div>
-      </div>	
-  </body>
+                </select></td>
+        </tr>
+        <tr>
+          <td><b>Contact Preference:</b></td>
+          <td><select name="ContactPref">
+              <option>Email</option>
+              <option>Mobile</option>
+              <option>Telephone</option>
+            </select></td>
+        </tr>
+      </tbody>
+    </table>
+      
+			<div style="clear: both"></div>
+		</div>
+			
+		<div id="footer">
+			<div id="col1">
+				<p>&nbsp;</p>
+		  </div>
+			<div id="col2">
+				<p>&nbsp;</p>
+		  </div>
+			<div id="col3">
+				<p>&nbsp;</p>
+		  </div>
+		</div>	
+	</div>
+</body>
 </html>

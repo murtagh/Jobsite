@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <?php
 
     require_once("Includes/DBfunctions.php");
@@ -49,28 +50,39 @@
                 $_POST["country"], $_POST["city"], $_POST["county"]);
             session_start();
         $_SESSION['email'] = $_POST['email'];
-        header('Location: userprofile.php' );
+        header('Location: User_Profile.php' );
         exit;
     
    }
    }
 ?>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-    <head>
-        <link href="main.css" type="text/css" rel="stylesheet" media="all"
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>User Registration Page</title>
-    </head>
-    <body style="margin: 0">
-        <h1>Create an Account</h1>
-        <div id="Ulogin">
-        <form action="User_Reg_Form.php" method="POST">
-            <fieldset style='border: 2px solid #000000' style='width: 50%'>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <title></title>
+  </head>
+  <body>
+    <div id="content">
+      <div id="logo">
+        <h1><a href="home.php">ContractWork.ie</a></h1>
+      </div>
+      <ul id="menu">
+        <li><a href="home.php">Home</a></li>
+        <li><a href="help.php">Help</a></li>
+        <li><a href="contact.php">Contact</a></li>
+      </ul>
+      <div id="intro">
+        <h1>Consultants and Contracter Recruiting</h1>
+        <p>Right Jobs. Right people. Right solutions.</p>
+      </div>	
+
+      <h2>Become a Member</h2>
+          <form action="User_Reg_Form.php" method="POST">
             Fill in the necessary fields in the below form (Marked with *) to create an account<br/><br/>
             
-            *Email:<br/> <input type="text" name="email" maxlength="50"/><br/>
+            *Email:<br/> <input type="text" name="email" maxlength="50" size="70"/><br/>
             <?php
                 if ($emailIsEmpty) {
                 echo ("<b>Enter an email address, please!</b>");
@@ -82,7 +94,7 @@
             }
             ?>
             
-            *Password:<br/> <input type="password" name="password" maxlength="25"/><br/>
+            *Password:<br/> <input type="password" name="password" maxlength="25" size="70"/><br/>
             <?php
                 if ($passwordIsEmpty) {
                 echo ("<b>Enter a password, please!</b>");
@@ -90,7 +102,7 @@
             }   
             ?>
             
-            *Please confirm your password:<br/> <input type="password" name="password2" maxlength="25"/><br/>
+            *Please confirm your password:<br/> <input type="password" name="password2" maxlength="25" size="70"/><br/>
             <?php
                 if ($password2IsEmpty) {
                 echo ("<b>Please confirm you password!</b>");
@@ -102,7 +114,7 @@
             }  
             ?>
             
-            *First Name:<br/> <input type="text" name="firstname" maxlength="50"/><br/>
+            *First Name:<br/> <input type="text" name="firstname" maxlength="50" size="70"/><br/>
             <?php
                 if ($firstnameIsEmpty) {
                 echo ("<b>Enter yout first name, please!</b>");
@@ -110,7 +122,7 @@
             }                
             ?>
             
-            *Last Name:<br/> <input type="text" name="lastname" maxlength="50"/><br/>
+            *Last Name:<br/> <input type="text" name="lastname" maxlength="50" size="70"/><br/>
             <?php
                 if ($lastnameIsEmpty) {
                 echo ("<b>Enter yout last name, please!</b>");
@@ -119,7 +131,7 @@
             ?>
             *Location:<br/>
                 <!--Start of country dropdown list. List retrieved from http://snipplr.com/view/4792/ -->
-                <select name ="country">
+                <select name ="country" style="width:49.5%">
                 <option value="Afghanistan">Afghanistan</option>
                 <option value="Albania">Albania</option>
                 <option value="Algeria">Algeria</option>
@@ -341,12 +353,12 @@
                 <option value="Yemen">Yemen</option>
                 <option value="Zambia">Zambia</option>
                 <option value="Zimbabwe">Zimbabwe</option>
-                </select><br/>
+                </select><br/><br/>
                 <!-- End of dropdown list -->
                  
                 <!-- javascript for make default text disappear got from
                 http://www.web-source.net/javascript_disappearing_form_text.htm-->
-                <input type="text" name="city" maxlength="50" value="Enter a city or town" 
+                <input type="text" name="city" maxlength="50" value="Enter a city or town" size="40"
                 onFocus="if(this.value == 'Enter a city or town'){this.value = '';}" onBlur="if (this.value == '') {this.value = 'Enter a city or town';}"/><br/>
            <?php
                 if ($cityIsEmpty) {
@@ -358,9 +370,10 @@
                 echo ("<br/>");
                 }
             ?>
+                <br/>
                 
                 <!--Start of counties dropdown list.--> 
-                <select name="county">
+                <select name="county" style="width:49.5%">
                 <option value="0">Select county</option>
                 <option value="Carlow">Carlow</option>
                 <option value="Cavan">Cavan</option>
@@ -389,13 +402,27 @@
                 <option value="Westmeath">Westmeath</option>
                 <option value="Wexford">Wexford</option>
                 <option value="Wicklow">Wicklow</option>
-                </select><br/>
+                </select><br/><br/>
                 <!-- End of dropdown list -->
                 
-                </select>
-            <input type="submit" value="Register" />
-            </fieldset>
+            <input type="submit" value="Register" action=""/>
+           
+            <p>&nbsp;</p>
+           
         </form>
+       <div style="clear: both"></div>
+      </div>
+
+      <div id="footer">
+        <div id="col1">
+          <p>&nbsp;</p>
         </div>
-     </body>
+        <div id="col2">
+          <p>&nbsp;</p>
+        </div>
+        <div id="col3">
+          <p>&nbsp;</p>
+        </div>
+      </div>	
+  </body>
 </html>
