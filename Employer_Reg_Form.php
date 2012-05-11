@@ -24,16 +24,58 @@
 		</div>
     
     <h2>Become a Member</h2>
-    <form action="Employer_Reg_Form" method="POST">
+    <form action="Employer_Reg_Form.php" method="POST">
     Fill in the necessary fields in the below form (Marked with *) to create an account<br/><br/>
     
     *Email:<br/> <input type="text" name="email_employer" maxlength="50" size="70"/><br/>
+    
     *Password:<br/> <input type="password" name="password_employer" maxlength="25" size="70"/><br/>
+    
     *Company Name:<br/> <input type="text" name="Company_Name" maxlenght="100" size="70" /><br/>
-    *Address:<br/> <textarea name="Address" rows="5" cols="53">
-    </textarea><br/>
+    
+    *Address:<br/>
+    <input type="text" name="CompAddress1" value="Address 1" size="70" /><br/><br/>
+    <input type="text" name="CompAddress2" value="Address 2" size="70" /><br/><br/>
+    <input type="text" name="CityTown" value="Enter City or Town" size="70" /><br/><br/>
+    <select name="CompCounty">
+                <option value="0">Select county</option>
+                <option value="Carlow">Carlow</option>
+                <option value="Cavan">Cavan</option>
+                <option value="Clare">Clare</option>
+                <option value="Cork">Cork</option>
+                <option value="Donegal">Donegal</option>
+                <option value="Dublin">Dublin</option>
+                <option value="Galway">Galway</option>
+                <option value="Kerry">Kerry</option>
+                <option value="Kildare">Kildare</option>
+                <option value="Kilkenny">Kilkenny</option>
+                <option value="Laois">Laois</option>
+                <option value="Leitrim">Leitrim</option>
+                <option value="Limerick">Limerick</option>
+                <option value="Longford">Longford</option>
+                <option value="Louth">Louth</option>
+                <option value="Mayo">Mayo</option>
+                <option value="Meath">Meath</option>
+                <option value="Monaghan">Monaghan</option>
+                <option value="Northern Ireland">Northern Ireland</option>
+                <option value="Offaly">Offaly</option>
+                <option value="Roscommon">Roscommon</option>
+                <option value="Sligo">Sligo</option>
+                <option value="Tipperary">Tipperary</option>
+                <option value="Waterford">Waterford</option>
+                <option value="Westmeath">Westmeath</option>
+                <option value="Wexford">Wexford</option>
+                <option value="Wicklow">Wicklow</option>
+    </select><br/>
+    
+    *Contact Number:<br/><input type="text" name="CompanyTel" maxlenght="10" /><br/>
+    
     *Company Description:<br/> <textarea name="Comp_Description" rows="10" cols="53">
     </textarea><br/>
+    
+    Upload Logo:<br/>
+    <input type="file" name="LogoUpload" value="" size="" />
+    <br/>
     
     <input type="submit" value="Register" name="Register" /><br/><br/>
     </form>

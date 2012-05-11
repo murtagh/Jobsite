@@ -20,7 +20,7 @@
 			<h1>Consultants and Contracter Recruiting</h1>
 			<p>Right Jobs. Right people. Right solutions.</p>
 			<div id="login">
-				<p><a href="User_Reg_Form.php">Jobseekers</a> <a href="Employer_Reg_Form.php">Employers</a></p>
+				<p><a href="JobSearch.php"><b>Contract Search</b></a> <a href="UserForum.php"><b>User Forum</b></a></p>
 			</div>
 		</div>	
 		
@@ -29,7 +29,7 @@
     <input type="submit" value="Save" name="SaveProfile" />
     </h2>
 		<div id="left">
-      <form name="EditProfile" method="POST" action="EditProfile.php" id="EditProfile">
+      <form name="EditProfile" method="POST" action="EditProfile.php">
             <table border="0" cellspacing="1">
       <tbody>
         <tr>
@@ -49,7 +49,7 @@
             </select></td>
         </tr>
         <tr>
-          <td><b>Daily Rate (EUR):</b></td>
+          <td><b>Expected Daily Rate (EUR):</b></td>
           <td><input type="text" name="DailyRate" value="" maxlenght="11" /></td>
         </tr>
         <tr>
@@ -118,7 +118,8 @@
       </form><br/>
       
       <b>Upload New CV</b>
-      <p>Browse to upload your CV <input type="file" name="CVupload" value="" /></p>
+      <input type="hidden" name="MAX_FILE_SIZE" value="64000"/>
+      <p>Browse to upload your CV <input type="file" name="CVupload" value="" />(your CV should not exceed 2MB) </p>
 
 		</div>
 	

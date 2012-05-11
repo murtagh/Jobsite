@@ -12,30 +12,69 @@
 		</div>
 		<ul id="menu">
 			<li><a href="home.php">Home</a></li>
-			<li><a href="forum.php">Forum</a></li>
 			<li><a href="help.php">Help</a></li>
 			<li><a href="contact.php">Contact</a></li>
+      <li><a href="./process/processLogout.php">Logout</a></li>
+      
 		</ul>
 		<div id="intro">
-			<h1>Consultants and Contracter Recruiting</h1>
+			<h1>Consultants and Contractor Recruiting</h1>
 			<p>Right Jobs. Right people. Right solutions.</p>
 			<div id="login">
-				<p><a href="User_Reg_Form.php">Jobseekers</a> <a href="Employer_Reg_Form.php">Employers</a></p>
+        <a href="CVSearch.php"><b>Candidate Search</b></a> <a href="PostJob.php"><b>Post Contract</b></a>
 			</div>
 		</div>	
 		
-		<div id="left">
+    <!--Company Logo-->
+		<div id="left" style="width: 30000px">
 	
 		</div>
 	
-		<div id="right">
+    <!--Company Details-->
+		<div id="right" style="width: 500px">
+      <table border="0">
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Company Name:</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><b>Address:</b></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><b>Contact Number:</b></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
 
-      
-			<p style="border-bottom: 1px solid #ccc; padding: 0 0 8px"></p>
-      
-			<div style="clear: both"></div>
+    <div style="clear: both"></div>
+
 		</div>
-			
+    
+    <!--Company Description-->
+    <div id="compdesc">
+
+    </div>
+    <input type="submit" value="Edit" name="CompEdit" /> 
+      <!--Company Description-->
+      
+      
 		<div id="footer">
 			<div id="col1">
 				<p>&nbsp;</p>

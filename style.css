@@ -64,3 +64,20 @@ h4 { color: #808080; background: inherit; font-weight: normal; font-size: .9em; 
 	#col1 { float: left; width: 274px; padding: 7px 0 0 15px; margin: 0 0 10px; }
 	#col2 { float: left; width: 250px; border-left: 1px solid #ccc; padding: 7px 0 0 40px; }
 	#col3 { float: right; width: 250px; border-left: 1px solid #ccc; padding: 7px 0 0 40px; }
+        
+#results {width:1003px}
+
+#compdesc { clear: both; border-top: 1px solid #ccc; padding: 10px 0; margin: 0 0 15px; font-size: .9em; text-align: justify; }
+
+.good {
+  font-size:14px;
+  background-color:white;
+  color:green;
+  font-weight:bold;  
+}
+.bad {
+  font-size:14px;
+  background-color:white;
+  color:red;
+  font-weight:bold;  
+}

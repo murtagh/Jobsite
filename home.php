@@ -1,32 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <?php
 
-require_once("Includes/DBfunctions.php");
-$logonSuccess = false;
+require_once("Includes/process.php");
 
-
-
-/** verify user's logon details
- * Calls the verify_logon_credentials function from the DBFunctions.php file
- * updates $logonSuccess variable to true if credentials are correct
- * and starts a user session
- */
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $logonSuccess = (jobsiteDB::getInstance()->verify_userlogon_credentials($_POST['useremail'], $_POST['userpassword']));
-    if ($logonSuccess == true) {
-        session_start();
-        $_SESSION['useremail'] = $_POST['useremail'];
-        header('Location: User_Profile.php');
-        exit;
-    }
-}
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+  	<title>Home</title>
+  <script src="./Includes/FormChecks.js"></script>
 	<link rel="stylesheet" href= "style.css" type="text/css" />
-	<title>Home</title>
 </head>
 <body>
 	<div id="content">
@@ -57,17 +41,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		</div>
 	
 		<div id="right">
+        
+      <?php userFeedback();
+          activateUser();
+        ?>
+ 
 			<h2>Jobseekers Sign In</h2>
-			<form name="userlogon" method="post" action="home.php">
+			<form name="UserLogin" action="./process/processUserlogin.php" method="post" onsubmit="return checkUserLogin(this);">
               Email Address:<br/><input type="text" name="useremail" value="" maxlength="50"/><br/>
         			Password:<br/><input type="password" name="userpassword" value="" maxlenght="25"/><br/>
-              <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") { 
-                if (!$logonSuccess)
-                echo "Invalid email and/or password";
-                }
-              ?>
               <input type="submit" name="Button" style='margin-left: 45%; margin-bottom: .5em' value="Sign In" />
+
+              
               <p style='text-align: center; margin: 1em'>
         				Don't have an account yet?</p>
        				<p style='text-align: center; margin: 1em'>
@@ -77,16 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			<p style="border-bottom: 1px solid #ccc; padding: 0 0 8px"></p>
       
       <h2>Employers Sign In</h2>
-      <form action="home.php" method="post" name="employlogon">
+      <form name="EmpLogin" action="./process/processEmpLogin.php" method="post" onsubmit="return checkEmpLogin(this);">
               Email Address:<br/><input type="text" name="employemail" value="" maxlength="50"/><br/>
               Password:<br/><input type="password" name="employpassword" value="" maxlenght="25"/><br/>
-              <?php
-                if ($_SERVER["REQUEST_METHOD"] == "POST") { 
-                if (!$logonSuccess)
-                echo "Invalid email and/or password";
-                }
-                ?>
-          			<input type="submit" name="Button" style='margin-left: 45%; margin-bottom: .5em' value="Sign In"/>        
+          			<input type="submit" name="Button" style='margin-left: 45%; margin-bottom: .5em' value="Sign In"/>   
+                
         			<p style='text-align: center; margin: 1em'>
        					 Don't have an account yet?</p>
        			 	<p style='text-align: center; margin: 1em'>

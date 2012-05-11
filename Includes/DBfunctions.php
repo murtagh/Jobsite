@@ -1,6 +1,6 @@
 <?php
 // This code was taken from netbeans tutorial (http://netbeans.org/kb/docs/php/wish-list-lesson4.html)
-//  and altered to work the database I have created
+//  and altered to work with the database I have created
 class jobsiteDB extends mysqli {
     
     private static $instance = null;
@@ -66,14 +66,36 @@ public function create_user ($email, $password, $firstname, $lastname, $country,
             '" . $country . "','" . $city . "','" . $county . "')");
 }
 
-public function verify_userlogon_credentials ($useremail, $userpassword){
-   $useremail = $this->real_escape_string($useremail);
-
-   $userpassword = $this->real_escape_string($userpassword);
-   $result = $this->query("SELECT 1 FROM useraccount
- 	           WHERE Email = '" . $useremail . "' AND Password = '" . $userpassword . "'");
-   return $result->data_seek(0);
-}
-}   
+//////////////////////////
+////User Login
+//////////////////////////
+  public function userLogin($useremail, $userpassword){
+    $logonSuccess = false;
+    
+    if ($_SERVER['REQUEST_METHOD'] == "POST") {
+      jobsiteDB::getInstance();
+       $logonSuccess = ($_POST['useremail']&&$_POST['userpassword']);
+       $useremail = $this->real_escape_string($useremail);
+       $userpassword = $this->real_escape_string($userpassword);
    
+       $result = $this->query("SELECT 1 FROM useraccount
+          WHERE Email = '" . $useremail . "' AND Password = '" . $userpassword . "'");
+        return $result->data_seek(0);
+    }
+        
+    if ($logonSuccess == TRUE) {
+      session_start();
+      $_SESSION['useremail'] = $_POST['useremail'];
+      header('Location: User_Profile.php');
+    }
+      
+      else { if(!$logonSuccess) 
+        echo "Invalid email and/or password";
+        exit;
+      }
+    }
+        
+}
+  
+ 
 ?>

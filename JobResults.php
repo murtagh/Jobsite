@@ -20,21 +20,19 @@
 			<h1>Consultants and Contracter Recruiting</h1>
 			<p>Right Jobs. Right people. Right solutions.</p>
 			<div id="login">
-				<p><a href="User_Reg_Form.php">Jobseekers</a> <a href="Employer_Reg_Form.php">Employers</a></p>
+            <a href="Job.php"><b>Contract Search</b></a>
+            <a href="SavedSearch.php"><b>Saved Searches</b></a>
+            <a href="SavedJobs.php"><b>Saved Jobs</b></a>
+            <a href="Forum.php"><b>User Forum</b></a>
 			</div>
 		</div>	
-		
-		<div id="left">
 	
-		</div>
-	
-		<div id="right">
-
+    <!--Results Displayed here-->
+    <div id="results">
+      <h2>Search Results:</h2>
       
-			<p style="border-bottom: 1px solid #ccc; padding: 0 0 8px"></p>
       
-			<div style="clear: both"></div>
-		</div>
+    </div>
 			
 		<div id="footer">
 			<div id="col1">
