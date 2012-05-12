@@ -42,15 +42,17 @@ require_once("Includes/process.php");
 	
 		<div id="right">
         
-      <?php userFeedback();
-          activateUser();
-        ?>
+      <?php userFeedback();?>
  
 			<h2>Jobseekers Sign In</h2>
 			<form name="UserLogin" action="./process/processUserlogin.php" method="post" onsubmit="return checkUserLogin(this);">
+                     
+              <?php activateUser(); ?>   
+        
               Email Address:<br/><input type="text" name="useremail" value="" maxlength="50"/><br/>
         			Password:<br/><input type="password" name="userpassword" value="" maxlenght="25"/><br/>
               <input type="submit" name="Button" style='margin-left: 45%; margin-bottom: .5em' value="Sign In" />
+
 
               
               <p style='text-align: center; margin: 1em'>
@@ -63,11 +65,16 @@ require_once("Includes/process.php");
       
       <h2>Employers Sign In</h2>
       <form name="EmpLogin" action="./process/processEmpLogin.php" method="post" onsubmit="return checkEmpLogin(this);">
+             
+              <?php activateEmployer(); ?>
+              
               Email Address:<br/><input type="text" name="employemail" value="" maxlength="50"/><br/>
               Password:<br/><input type="password" name="employpassword" value="" maxlenght="25"/><br/>
           			<input type="submit" name="Button" style='margin-left: 45%; margin-bottom: .5em' value="Sign In"/>   
                 
-        			<p style='text-align: center; margin: 1em'>
+
+              
+                <p style='text-align: center; margin: 1em'>
        					 Don't have an account yet?</p>
        			 	<p style='text-align: center; margin: 1em'>
         			<a href="Employer_Reg_Form.php">Create one now</a></p>

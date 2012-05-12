@@ -1,4 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php
+
+    require './Includes/process.php';
+    
+    $empvalues = viewEmpProfile();
+?>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
@@ -25,9 +32,11 @@
 			</div>
 		</div>	
 		
+    <h2>Company Profile <button type="button" name="EditEmpProfile" onclick="location.href='EditEmpProfile.php'">Edit</button></h2>
+    
     <!--Company Logo-->
 		<div id="left" style="width: 30000px">
-	
+      
 		</div>
 	
     <!--Company Details-->
@@ -38,27 +47,31 @@
         <tbody>
           <tr>
             <td><b>Company Name:</b></td>
-            <td></td>
+            <td><?php echo $empvalues['Company_Name'];?></td>
           </tr>
           <tr>
             <td><b>Address:</b></td>
-            <td></td>
+            <td><?php echo $empvalues['Address1'];?></td>
           </tr>
           <tr>
             <td></td>
-            <td></td>
+            <td><?php echo $empvalues['Address2'];?></td>
           </tr>
           <tr>
             <td></td>
-            <td></td>
+            <td><?php echo $empvalues['City'];?></td>
           </tr>
           <tr>
             <td></td>
-            <td></td>
+            <td><?php echo $empvalues['County'];?></td>
+          </tr>
+          <tr>
+            <td><b>Email:</b></td>
+            <td><?php echo $empvalues['Email'];?></td>
           </tr>
           <tr>
             <td><b>Contact Number:</b></td>
-            <td></td>
+            <td><?php echo $empvalues['Contact_Number'];?></td>
           </tr>
         </tbody>
       </table>
@@ -69,11 +82,9 @@
     
     <!--Company Description-->
     <div id="compdesc">
-
-    </div>
-    <input type="submit" value="Edit" name="CompEdit" /> 
-      <!--Company Description-->
-      
+      <textarea name="compdesc" rows="20" cols="110" disabled="disabled"><?php echo $empvalues['Company_Desc'];?>
+      </textarea>
+    </div>      
       
 		<div id="footer">
 			<div id="col1">

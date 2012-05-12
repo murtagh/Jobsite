@@ -77,7 +77,7 @@ function registeruser(){
    * Check to see if email already registered
    * If not insert field values into useraccount table
    */
-  $result = queryDatabase("SELECT userID
+  $result = queryDatabase("SELECT UserID
                            FROM useraccount
                            WHERE Email = '$email'");
   
@@ -198,17 +198,6 @@ function loginUser() {
 }
 
 //////////////////////////////////////////
-// LOGOUT THE USER
-//////////////////////////////////////////
-function logout() {
-  session_unset();
-  session_destroy();
-  $_SESSION = array();
-
-  header('Location: ' . HOME . 'home.php?feedback=14');
-}
-
-//////////////////////////////////////////
 // SHOW USER PROFILE
 //////////////////////////////////////////
 function viewProfile(){
@@ -247,18 +236,172 @@ $userid = $_SESSION['UserID'];
         
 }
 
+//////////////////////////////////////////
+// UPDATE PROFILE
+//////////////////////////////////////////
+function updateProfile(){
+  $userID = $_SESSION['UserID'];
+  $name = htmlspecialchars(trim($_POST['Name']), ENT_QUOTES);
+  $county = htmlspecialchars(trim($_POST['county']), ENT_QUOTES);
+  $town = htmlspecialchars(trim($_POST['Town']), ENT_QUOTES);
+  $jobtitle = htmlspecialchars(trim($_POST['JobTitle']), ENT_QUOTES);
+  $availability = htmlspecialchars(trim($_POST['availability']), ENT_QUOTES);
+  $dailyrate = htmlspecialchars(trim($_POST['DailyRate']), ENT_QUOTES);
+  $employer = htmlspecialchars(trim($_POST['RecentEmployer']), ENT_QUOTES);
+  $careerlevel = htmlspecialchars(trim($_POST['CareerLevel']), ENT_QUOTES);
+  $experienceyears = htmlspecialchars(trim($_POST['ExperienceYears']), ENT_QUOTES);
+  $educationlevel = htmlspecialchars(trim($_POST['EducationLevel']), ENT_QUOTES);
+  $travel = htmlspecialchars(trim($_POST['travel']), ENT_QUOTES);
+  $relocate = htmlspecialchars(trim($_POST['relocate']), ENT_QUOTES);
+  $mobile = htmlspecialchars(trim($_POST['mobile']), ENT_QUOTES);
+  $secnumber = htmlspecialchars(trim($_POST['SecNum']), ENT_QUOTES);
+  $contactpref = htmlspecialchars(trim($_POST['ContactPref']), ENT_QUOTES);
+  $statement = str_replace(array("\r\n", "\n", "\r"), "<br />", htmlspecialchars(trim($_POST['PersonalStatement']), ENT_QUOTES));
+  $CVtext = htmlspecialchars($_POST['CV'], ENT_QUOTES);
+  
+  connectDatabase();
+  
+  queryDatabase("UPDATE useraccount SET Full_Name = '$name', 
+                                        City = '$town', 
+                                        County = '$county', 
+                                        JobTitle = '$jobtitle', 
+                                        Availability = '$availability', 
+                                        Daily_Rate = '$dailyrate', 
+                                        RecentEmployer = '$employer', 
+                                        Career_Level = '$careerlevel', 
+                                        Experience = '$experienceyears', 
+                                        Education_Level = '$educationlevel', 
+                                        WillingToTravel = '$travel', 
+                                        WillingToRelocate = '$relocate', 
+                                        Mobile = '$mobile', 
+                                        Secondary_Number = '$secnumber', 
+                                        Contact_Pref = '$contactpref', 
+                                        Personal_Statement = '$statement', 
+                                        CV = '$CVtext' WHERE UserID = $userID->UserID");
+
+  header('Location: ' . HOME . 'User_Profile.php?feedback=15');
+}
 
 // ******************************************************************
 // EMPLOYER FUNCTIONS
 // ******************************************************************
 
+/////////////////////////
+// EMPLOYER REGISTER
+////////////////////////
+function registeremployer(){
+  //include mail package from PEAR library
+  require_once "mail.php";
+  
+  /* 
+   * Assign values selected in employer register form to variables
+   * htmlspecialchars - convert special characters to HTML entities
+   * trim - strip white space from end of beginnging and end of string
+   * ENT_QUOTES - Convert both double and single quotes
+   */
+  $empemail = htmlspecialchars(trim($_POST['email_employer']), ENT_QUOTES);
+  $emppassword = htmlspecialchars(trim($_POST['password_employer']), ENT_QUOTES);
+  $compname = htmlspecialchars(trim($_POST['Company_Name']), ENT_QUOTES);
+  $address1 = htmlspecialchars(trim($_POST['CompAddress1']), ENT_QUOTES);
+  $address2 = htmlspecialchars(trim($_POST['CompAddress2']), ENT_QUOTES);
+  $empcity = htmlspecialchars(trim($_POST['CityTown']), ENT_QUOTES);
+  $empcounty = htmlspecialchars(trim($_POST['CompCounty']), ENT_QUOTES);
+  $emptelephone = htmlspecialchars(trim($_POST['CompanyTel']), ENT_QUOTES);
+  $empdescription = htmlspecialchars(trim($_POST['Comp_Description']), ENT_QUOTES);
+  $empdate = date('Y-m-d');
+  $emphash = md5(rand(0,1000));
+  
+  connectDatabase();
+  
+  /*
+   * Check to see if email already registered
+   * If not insert field values into useraccount table
+   */
+  $result = queryDatabase("SELECT EmployerID
+                           FROM employeraccount
+                           WHERE Email = '$empemail'");
+  
+    if (mysql_num_rows($result) == 1) {
+    header('Location: ' . HOME . 'Employer_Reg_Form.php?feedback=3');
+    } else {
+      queryDatabase("INSERT INTO employeraccount (Email, Password, Company_Name, Address1, Address2, 
+          City, County, Contact_Number, Company_Desc, Create_Date, emphash) VALUES ('$empemail', '$emppassword', '$compname', 
+          '$address1', '$address2', '$empcity', '$empcounty', '$emptelephone', '$empdescription', '$empdate', '$emphash')");
+      
+      /*
+       * When insert is completed send verifcation email to registered email ($empemail)
+       * with link to verify email
+       * PEAR email package used here for SMTP authentication for email sent from gmail account
+       * Return user to home page
+       */
+      $from = "contractworkire@gmail.com";
+      $to = $empemail;
+      $subject = 'Verification Email';
+      $message = '
+        
+      Thanks for signing up!
+      Your account has been created, please copy the link below into your browser to activate your account
+      
+      http://localhost/JobSite/home.php?emailemp='.$empemail.'&emphash='.$emphash.'
+      ';
+      
+      $host = "smtp.gmail.com";
+      $hostusername = "contractworkire@gmail.com";
+      $hostpassword = "Skerries09";
+      $headers = array ('From' => $from,
+        'To' => $to,
+        'Subject' => $subject);
+      $smtp = Mail::factory('smtp',
+        array ('host' => $host,
+     'auth' => true,
+     'username' => $hostusername,
+     'password' => $hostpassword));
+      
+      $mail = $smtp->send($to, $headers, $message);
+ 
+      if (PEAR::isError($mail)) {
+         echo("<p>" . $mail->getMessage() . "</p>");
+    } else {
+      header('Location: ' . HOME . 'home.php?feedback=4');
+    } 
+   } 
+}
+
+//////////////////////////////////////////
+// ACTIVATE USER
+//////////////////////////////////////////
+function activateEmployer() {
+  if(isset($_GET['emailemp'])AND isset($_GET['emphash'])){  
+    $empemail = htmlspecialchars($_GET['emailemp'], ENT_QUOTES);
+    $emphash = htmlspecialchars($_GET['emphash'], ENT_QUOTES);
+    
+    connectDatabase();
+    
+    $result = queryDatabase("SELECT Email, emphash, Active
+                             FROM employeraccount
+                             WHERE Email='$empemail' AND emphash='$emphash' AND Active = 0");
+    
+    if (mysql_num_rows($result) > 0){
+      queryDatabase("UPDATE employeraccount SET Active = 1 WHERE Email='$empemail' AND emphash='$emphash' AND Active = 0");
+      echo '<div class="good">Activation successful - Login using EMAIL and PASSWORD</div>';
+    }else {
+      echo '<div class="bad">The url is either invalid or you already have activated your account.</div>';
+        
+      break;
+      }
+    }
+  }
+  
+//////////////////////////////////////////
+// EMPLOYER LOGIN
+//////////////////////////////////////////
 function EmpLogin(){
   $email = htmlspecialchars(trim($_POST['employemail']), ENT_QUOTES);
   $password = htmlspecialchars(trim($_POST['employpassword']), ENT_QUOTES);
   
   connectDatabase();
   
-  $result = queryDatabase("SELECT CompanyID
+  $result = queryDatabase("SELECT EmployerID
                            FROM employeraccount
                            WHERE Email = '$email' AND
                                  Password = '$password' AND
@@ -268,12 +411,12 @@ function EmpLogin(){
     $row = mysql_fetch_object($result);
     $date = date('Y-m-d');
     
-    queryDatabase("UPDATE employeraccount SET Last_Login_Date = '$date' WHERE CompanyID = $row->CompanyID");
-    $_SESSION['CompanyID'] = $row;
+    queryDatabase("UPDATE employeraccount SET Last_Login_Date = '$date' WHERE EmployerID = $row->EmployerID");
+    $_SESSION['EmployerID'] = $row;
 
     header('Location: ' . HOME . 'Employer_Profile.php');
   } else {
-    $result = queryDatabase("SELECT CompanyID
+    $result = queryDatabase("SELECT EmployerID
                              FROM employeraccount
                              WHERE Email = '$email' AND
                                    Password = '$password' AND
@@ -286,9 +429,73 @@ function EmpLogin(){
       header('Location: ' . HOME . 'home.php?feedback=1');
   }
 }
+
+//////////////////////////////////////////
+// SHOW EMPLOYER PROFILE
+//////////////////////////////////////////
+function viewEmpProfile(){
+$employerid = $_SESSION['EmployerID']; 
+
+  connectDatabase();
+  
+  $result = queryDatabase("SELECT Email, Company_Name, Address1, Address2, City, County, Contact_Number, 
+      Company_Desc FROM employeraccount WHERE EmployerID = $employerid->EmployerID AND Active = 1");
+  
+  $row = mysql_fetch_object($result);
+  
+  $empvalues = array();
+  
+  $empvalues['Email'] = $row->Email;
+  $empvalues['Company_Name'] = $row->Company_Name;
+  $empvalues['Address1'] = $row->Address1;
+  $empvalues['Address2'] = $row->Address2;
+  $empvalues['City'] = $row->City;
+  $empvalues['County'] = $row->County;
+  $empvalues['Contact_Number'] = $row->Contact_Number;
+  $empvalues['Company_Desc'] = $row->Company_Desc;
+  
+  return $empvalues;         
+}
+
+//////////////////////////////////////////
+// UPDATE EMPLOYER PROFILE
+//////////////////////////////////////////
+function updateEmpProfile(){
+  $EmployerID = $_SESSION['EmployerID'];
+  $compname = htmlspecialchars(trim($_POST['Company_Name']), ENT_QUOTES);
+  $address1 = htmlspecialchars(trim($_POST['CompAddress1']), ENT_QUOTES);
+  $address2 = htmlspecialchars(trim($_POST['CompAddress2']), ENT_QUOTES);
+  $city = htmlspecialchars(trim($_POST['CityTown']), ENT_QUOTES);
+  $county = htmlspecialchars(trim($_POST['CompCounty']), ENT_QUOTES);
+  $telnumber = htmlspecialchars(trim($_POST['CompanyTel']), ENT_QUOTES);
+  $compDesc = htmlspecialchars(trim($_POST['Comp_Description']), ENT_QUOTES);
+  
+  connectDatabase();
+  
+  queryDatabase("UPDATE employeraccount SET Company_Name = '$compname', 
+                                        Address1 = '$address1', 
+                                        Address2 = '$address2', 
+                                        City = '$city', 
+                                        County = '$county', 
+                                        Contact_Number = '$telnumber', 
+                                        Company_Desc = '$compDesc' WHERE EmployerID = $EmployerID->EmployerID");
+
+  header('Location: ' . HOME . 'Employer_Profile.php?feedback=15');
+}
 // ******************************************************************
 // MISCELLANEOUS FUNCTIONS
 // ******************************************************************
+
+//////////////////////////////////////////
+// LOGOUT
+//////////////////////////////////////////
+function logout() {
+  session_unset();
+  session_destroy();
+  $_SESSION = array();
+
+  header('Location: ' . HOME . 'home.php?feedback=14');
+}
 
 //////////////////////////////////////////
 // USER FEEDBACK

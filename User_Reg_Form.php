@@ -8,6 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+    <script src="./Includes/FormChecks.js"></script>
     <link rel="stylesheet" href="style.css" type="text/css" />
     <title></title>
   </head>
@@ -32,7 +33,7 @@
       <?php userFeedback() ?>
       
       <div>
-      <form name="UserRegForm" action="./process/processUserReg.php" method="POST" onsubmit="return checkUserRegForm(this)">   
+      <form name="UserRegForm" enctype="multipart/form-data" action="./process/processUserReg.php" method="POST" onsubmit="return checkUserRegForm(this)">   
             <table border="0" cellspacing="1">
               <thead><b>Login Details</b></thead>
               <tbody>
@@ -180,9 +181,14 @@
               <td></td>
             </tr>
           </tbody>
-        </table>
-        <input type="submit" value="Register" action=""/>
-       </form>
+        </table><br/>
+        
+      <b>Upload New CV</b>
+      <input type="hidden" name="MAX_FILE_SIZE" value="2000000"/>
+      <p>Browse to upload your CV <input type="file" name="CVupload" value="" />(your CV should not exceed 2MB) </p>
+       
+      <input type="submit" names="register" value="Register" action=""/>
+      </form>
        </div>   
             <p>&nbsp;</p>
            

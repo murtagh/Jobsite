@@ -53,7 +53,7 @@ $values = viewProfile();
           <td><?php echo $values['availability'];?></td>
         </tr>
         <tr>
-          <td><b>Daily Rate (EUR):</b></td>
+          <td><b>Expected Daily Rate (EUR):</b></td>
           <td><?php echo $values['Daily_Rate'];?></td>
         </tr>
         <tr>
@@ -82,36 +82,9 @@ $values = viewProfile();
         </tr>
       </tbody>
     </table>
-      <br/><p><b>Personal Statement:</b></p>
-      <textarea name="PersonalStatement" rows="5" cols="100" disabled="disabled">
-        <?php echo $values['Personal_Statement'];?>
-      </textarea><br/><br/>
-      
-      <p><b>CV:</b></p>
-      <textarea name="CV" rows="100" cols="100" disabled="disabled">
-        <?php echo $values['CV'];?>
-      </textarea><br/><br/>    
-      
-      <table border="1" cellpadding="1">
-        <thead>
-        </thead>
-        <tbody>
-          <tr>
-            <td align="center" style="width:300px"><b>CV Name</b></td>
-            <td align="center" style="width:90px"><b>View CV</b></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td align="center"><a href="CVview.php" target="_blank">View</a></td>
-          </tr>
-        </tbody>
-      </table>
-
-      
     </div>
     
-    <div id="right" style="border-left: none"">
-    
+    <div id="right" style="border-left: none">
     <table border="0" cellspacing="1">
       <tbody>
         <tr>
@@ -142,10 +115,35 @@ $values = viewProfile();
     </table>
     </form>
     </div>
-    
-		</div>
-		    
+		     
+  <div style="clear: both"></div>
+  
+  <div>
+        <br/><p><b>Personal Statement:</b></p>
+      <textarea name="PersonalStatement" rows="5" cols="100" disabled="disabled"><?php echo $values['Personal_Statement'];?>
+      </textarea><br/><br/>
 
+      <p><b>CV:</b></p>
+      <textarea name="CV" rows="100" cols="100" disabled="disabled">
+        <?php echo $values['CV'];?>
+      </textarea><br/><br/>    
+
+      <table border="1" cellpadding="1">
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+            <td align="center" style="width:300px"><b>CV Name</b></td>
+            <td align="center" style="width:90px"><b>View CV</b></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td align="center"><a href="CVview.php" target="_blank">View</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div><br/>
+    
 		<div id="footer">
 			<div id="col1">
 				<p>&nbsp;</p>

@@ -71,7 +71,7 @@ function checkUserRegForm(form){
     form.password1.focus();
 
     return false;
-  }  else if (form.password1.value.lenght < 6) {
+  }  else if (form.password1.value.length < 6) {
     alert("Password must contain at least six characters");
 
     form.password1.focus();
@@ -156,4 +156,143 @@ function checkUserRegForm(form){
   return true;
 }  
 
+function checkEditProfile(form){
+    if (form.Name.value == "") {
+      alert("Please insert your full name")
+      
+      form.Name.focus();
+      
+      return false;
+  } else if (form.JobTitle.value == "") {
+      alert("Please enter a job title")
+      
+      form.JobTitle.focus();
+      
+      return false
+  } else if (form.CVtextarea.value == "") {
+      alert("Please enter your CV details")
+      
+      form.CVtextarea.focus();
+      
+      return false
+  }
+  return true;
+} 
 
+function checkEmpRegForm(form){
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9_\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    
+  if (form.email_employer.value == "") {
+    alert("Please insert an EMAIL.");
+
+    form.email_employer.focus();
+
+    return false;
+  } else if (!filter.test(form.email_employer.value)) {
+    alert("Please insert a valid EMAIL (e.g. user@domain.ext)");
+    
+    form.email_employer.focus();
+
+    return false;
+  } else if (form.password_employer.value == "") {
+    alert("Please insert a PASSWORD.");
+
+    form.password_employer.focus();
+
+    return false;
+  }  else if (form.password_employer.value.length < 6) {
+    alert("Password must contain at least six characters");
+
+    form.password_employer.focus();
+
+    return false;
+  } else if (form.password_employer2.value == "") {
+    alert("Please retype the PASSWORD.");
+
+    form.password_employer2.focus();
+
+    return false;
+  } else if (form.password_employer.value != form.password_employer2.value) {
+    alert("Password and confirmed password do not match");
+    
+    form.password_employer.value = "";
+    form.password_employer2.value = "";
+    
+    form.password_employer.focus();
+
+    return false;
+  } else if (form.Company_Name.value == "") {
+      alert("Please insert company name")
+      
+      form.Company_Name.focus();
+      
+      return false;
+  } else if (form.CompAddress1.value == "Address 1") {
+      alert("Please enter a address 1")
+      
+      form.CompAddress1.focus();
+      
+      return false
+  } else if (form.CityTown.value == "Enter City or Town") {
+      alert("Please enter a city or town")
+      
+      form.CityTown.focus();
+      
+      return false
+  } else if (form.CompCounty.value == "Select county") {
+      alert("Please select a county")
+      
+      form.CompCounty.focus();
+      
+      return false
+  } else if (form.CompanyTel.value == "") {
+      alert("Please enter a contact number")
+      
+      form.CompanyTel.focus();
+      
+      return false
+  } else if (form.Comp_Description.value == "") {
+      alert("Please enter a brief description of your company")
+      
+      form.Comp_Description.focus();
+      
+      return false
+  }
+  
+  return true;
+}
+
+function checkEditEmpProfile(form){
+    if (form.Company_Name.value == "") {
+      alert("Please enter a company name")
+      
+      form.Company_Name.focus();
+      
+      return false;
+  } else if (form.CompAddress1.value == "") {
+      alert("Please enter Address 1")
+      
+      form.CompAddress1.focus();
+      
+      return false
+  } else if (form.CityTown.value == "") {
+      alert("Please enter a city or town")
+      
+      form.CityTown.focus();
+      
+      return false
+  } else if (form.CompCounty.value == "") {
+      alert("Please enter a brief description of your company")
+      
+      form.CompCounty.focus();
+      
+      return false
+  } else if (form.CompanyTel.value == "") {
+      alert("Please enter a contact number")
+      
+      form.CompanyTel.focus();
+      
+      return false
+  }
+  return true;
+} 
